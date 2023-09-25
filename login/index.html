@@ -3,10 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo</title>
+    <title>Login - Área da Saúde</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        .login-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2980b9;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .register-link {
+            font-size: 12px;
+            color: #000000;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <script src="/index.js"></script>
-    <script src="calculadora.js"></script>
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Fazer Login - Área da Saúde</h2>
+            <form id="login-form" action="file://d6236s102/Compartilhado%24/10375.115/Html%20prototipo.html">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                <label for="data-nascimento">Data de Nascimento:</label>
+                <input type="date" id="data-nascimento" name="data-nascimento" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p class="register-link">Ainda não tem uma conta? <a href="file://d6236s102/Compartilhado%24/10375.115/tala%20de%20cadastro.html" style="text-decoration: none;">Cadastrar</a></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            window.location.href = this.action;
+        });
+    </script>
 </body>
 </html>
