@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Agendamento de Consultas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+        header {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .tab-label {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        .tab-content {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 1rem;
+            border-radius: 0 0 5px 5px;
+            background-color: #f1f1f1;
+            margin-top: -1px;
+        }
+        .chat-container {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .chat-log {
+            max-height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            background-color: #fff;
+        }
+        .user-input-container {
+            margin-top: 10px;
+        }
+        .user-input {
+            width: 70%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+        select, input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function openTab(tabName) {
+            var tabs = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].style.display = "none";
+            }
+            document.getElementById(tabName).style.display = "block";
+        }
+
+
+        function sendUserMessage() {
+            var userMessage = document.getElementById("user-input").value;
+            var chatLog = document.getElementById("chat-log");
+           
+            var userBubble = '<div class="user-bubble">Você: ' + userMessage + '</div>';
+            chatLog.innerHTML += userBubble;
+           
+            // Simulação de resposta do chatbot
+            setTimeout(function() {
+                var botMessage = getBotResponse(userMessage);
+                var botBubble = '<div class="bot-bubble">Chatbot: ' + botMessage + '</div>';
+                chatLog.innerHTML += botBubble;
+            }, 500);
+
+
+            document.getElementById("user-input").value = "";
+        }
+
+
+        function getBotResponse(userMessage) {
+            // Lógica de resposta do chatbot aqui
+            if (userMessage.toLowerCase().includes("agendar")) {
+                return "Claro, vou te ajudar a agendar uma consulta. Por favor, informe o setor e a data desejada.";
+            } else if (userMessage.toLowerCase().includes("suporte")) {
+                return "Você está precisando de suporte? Como posso ajudar?";
+            } else if (userMessage.toLowerCase().includes("fale conosco")) {
+                return "Gostaríamos de ouvir suas perguntas e comentários. Como posso ajudar você?";
+            } else {
+                return "Desculpe, não entendi. Como posso ajudar?";
+            }
+        }
+       
+        function populateHorarios() {
+            var select = document.getElementById("horario");
+            var selectedDate = document.getElementById("data").value;
+           
+            // Lógica para popular os horários disponíveis
+            // Este é um exemplo simples, você pode adicionar seus próprios horários
+            var horariosDisponiveis = [
+                "09:00", "10:00", "11:00", "14:00", "15:00"
+            ];
+           
+            select.innerHTML = "";
+            for (var i = 0; i < horariosDisponiveis.length; i++) {
+                var option = document.createElement("option");
+                option.text = horariosDisponiveis[i];
+                option.value = horariosDisponiveis[i];
+                select.add(option);
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Sistema de Agendamento de Consultas</h1>
+    </header>
+    <div class="container">
+        <div class="tab-label" onclick="openTab('dias-tab')">Dias Disponíveis</div>
+        <div class="tab-label" onclick="openTab('agendamento-tab')">Agendar Consulta</div>
+        <div class="tab-label" onclick="openTab('suporte-tab')">Suporte</div>
+        <div class="tab-label" onclick="openTab('fale-conosco-tab')">Fale Conosco</div>
+       
+        <div class="tab-content" id="dias-tab">
+            <h2>Dias Disponíveis</h2>
+            <p><strong>Dias Disponíveis:</strong> Hospital: Todos os dias | Posto de Saúde: Segunda-feira a Sexta-feira</p>
+            <p><strong>Serviços Disponíveis:</strong></p>
+            <p><strong>Hospital:</strong> Clínico Geral, Pediatria, Ginecologia, Cirurgia Geral, Ortopedia, Vacinação</p>
+            <p><strong>Posto de Saúde:</strong> Clínico Geral, Pediatria, Vacinação</p>
+        </div>
+
+
+        <div class="tab-content" id="agendamento-tab">
+            <h2>Agendar Consulta</h2>
+            <form>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+               
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+               
+                <label for="setor">Setor:</label>
+                <select id="setor" name="setor">
+                    <option value="hospital">Hospital</option>
+                    <option value="posto-saude">Posto de Saúde</option>
+                </select>
+               
+                <label for="servico">Serviço:</label>
+                <select id="servico" name="servico">
+                    <option value="clinico-geral">Clínico Geral</option>
+                    <option value="pediatria">Pediatria</option>
+                    <option value="ginecologia">Ginecologia</option>
+                    <option value="cirurgia-geral">Cirurgia Geral</option>
+                    <option value="ortopedia">Ortopedia</option>
+                    <option value="vacinacao">Vacinação</option>
+                </select>
+               
+                <label for="data">Data da Consulta:</label>
+                <input type="date" id="data" name="data" onchange="populateHorarios()" required>
+               
+                <label for="horario">Horário:</label>
+                <select id="horario" name="horario"></select>
+               
+                <button type="button" onclick="sendUserMessage()">Agendar</button>
+            </form>
+           
+            <div class="chat-container">
+                <div id="chat-log" class="chat-log"></div>
+                <div class="user-input-container">
+                    <input type="text" id="user-input" class="user-input" placeholder="Digite sua mensagem...">
+                    <button onclick="sendUserMessage()">Enviar</button>
+                </div>
+            </div>
+        </div>
+       
+        <div class="tab-content" id="suporte-tab">
+            <h2>Suporte</h2>
+            <p>Utilize o chat abaixo para entrar em contato com o suporte:</p>
+            <div class="chat-container">
+                <div id="chat-log" class="chat-log"></div>
+                <div class="user-input-container">
+                    <input type="text" id="user-input" class="user-input" placeholder="Digite sua mensagem...">
+                    <button onclick="sendUserMessage()">Enviar</button>
+                </div>
+            </div>
+        </div>
+       
+        <div class="tab-content" id="fale-conosco-tab">
+            <h2>Fale Conosco</h2>
+            <p>Utilize o chat abaixo para enviar suas perguntas e comentários:</p>
+            <div class="chat-container">
+                <div id="chat-log" class="chat-log"></div>
+                <div class="user-input-container">
+                    <input type="text" id="user-input" class="user-input" placeholder="Digite sua mensagem...">
+                    <button onclick="sendUserMessage()">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
